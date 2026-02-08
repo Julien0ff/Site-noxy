@@ -12,6 +12,11 @@
       "title": "Moss Armor",
       "shortDescription": "New moss armor, tools, and even edible moss.",
       "descriptionHtml": "<h2>Full description</h2><p>New moss armor, tools, and even an edible moss component.</p><p>Perfect for players who want a nature vibe with unique gear.</p>"
+    },
+    "pl": {
+      "title": "Zbroja z mchu",
+      "shortDescription": "Nowa zbroja z mchu, narzędzia i nawet jadalny mech.",
+      "descriptionHtml": "<h2>Pełny opis</h2><p>Nowa zbroja z mchu, narzędzia i nawet jadalny składnik z mchu.</p><p>Idealne dla graczy, którzy chcą naturalnego klimatu i unikatowego ekwipunku.</p>"
     }
   },
   "tags": ["Armure", "Nature"],

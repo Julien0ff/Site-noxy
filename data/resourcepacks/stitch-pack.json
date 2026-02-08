@@ -14,6 +14,12 @@
       "shortDescription": "The Stitch pack is a PvP resource pack.",
       "descriptionHtml": "<h2>Stitch PvP Pack</h2><p>Enter the world of Stitch with this unique PvP resource pack. Inspired by the iconic character, it adds a fun, colorful vibe to your fights.</p><ul class=\"modpack-list\"><li>Themed textures: stylized swords, blue-tinted armor and tools inspired by Stitch.</li><li>Vibrant colors: blues and purples dominate to reflect the character's energy.</li><li>Optimized for PvP: lightweight textures for maximum performance.</li><li>Custom effects: bespoke particles and a redesigned interface for full immersion.</li></ul><p>Perfect for Stitch fans and PvP lovers.</p>",
       "byline": "By _Syh"
+    },
+    "pl": {
+      "title": "Stitch Pack",
+      "shortDescription": "Stitch Pack to paczka zasobów PvP.",
+      "descriptionHtml": "<h2>Stitch PvP Pack</h2><p>Wejdź do świata Stitcha dzięki tej wyjątkowej paczce zasobów PvP! Zainspirowana kultową postacią, dodaje zabawny i kolorowy klimat do walk.</p><ul class=\"modpack-list\"><li>Tekstury tematyczne: stylizowane miecze, niebieska zbroja i narzędzia inspirowane Stitchem.</li><li>Żywe kolory: dominują błękity i fiolety, oddając energię postaci.</li><li>Zoptymalizowana pod PvP: lekkie tekstury dla maksymalnej płynności.</li><li>Własne efekty: specjalne cząsteczki i odświeżony interfejs dla pełnego zanurzenia.</li></ul><p>Idealna dla fanów Stitcha i miłośników PvP!</p>",
+      "byline": "By _Syh"
     }
   },
   "tags": ["UI", "PvP", "BedWars", "x32", "1.8.9"],

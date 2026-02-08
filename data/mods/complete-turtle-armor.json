@@ -12,6 +12,11 @@
       "title": "Complete Turtle Armor",
       "shortDescription": "Completes the turtle armor set.",
       "descriptionHtml": "<h2>Full description</h2><p>This mod completes the turtle armor set.</p><p>The Turtle Set mod adds a full turtle armor set.</p><p>Why download this mod rather than another turtle mod?</p><p>This mod keeps a vanilla style. Adding it to Minecraft still feels like Minecraft. If you enjoy vanilla style, give it a try.</p><ul class='modpack-list'><li>Helmet (vanilla): Water breathing for 10 seconds.</li><li>Leggings: Dolphin's Grace I.</li><li>Boots: Speed I.</li></ul><p>Available for client and server. For Fabric, the Fabric API must be installed.</p><p>Created with MCreator.</p>"
+    },
+    "pl": {
+      "title": "Kompletna zbroja żółwia",
+      "shortDescription": "Uzupełnia zestaw zbroi żółwia.",
+      "descriptionHtml": "<h2>Pełny opis</h2><p>Ten mod uzupełnia zestaw zbroi żółwia.</p><p>Mod „Zestaw Żółwia” dodaje pełny zestaw zbroi żółwia.</p><p>Dlaczego pobrać ten mod zamiast innego moda z żółwiem?</p><p>Ten mod zachowuje styl vanilla. Dodanie go do Minecrafta nadal sprawia wrażenie gry w Minecrafta. Jeśli lubisz styl vanilla, koniecznie go wypróbuj.</p><ul class='modpack-list'><li>Hełm (vanilla): oddychanie pod wodą przez 10 sekund.</li><li>Spodnie: Łaska delfina I.</li><li>Buty: Szybkość I.</li></ul><p>Dostępny dla klienta i serwera. Dla Fabric wymagane jest Fabric API.</p><p>Stworzono w MCreator.</p>"
     }
   },
   "tags": ["Armure", "Loot"],

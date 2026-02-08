@@ -12,6 +12,11 @@
       "title": "Craft Chain Armor",
       "shortDescription": "Adds a crafting system for chainmail armor.",
       "descriptionHtml": "<h2>Full description</h2><p>This mod adds a crafting system for chainmail armor.</p><p>Turn ingots and chains into armor pieces in a more natural way, without relying on random loot.</p><p>Ideal for survival servers that want clear, vanilla-friendly progression.</p>"
+    },
+    "pl": {
+      "title": "Craft Chain Armor",
+      "shortDescription": "Dodaje system craftingu zbroi z kolczugi.",
+      "descriptionHtml": "<h2>Pełny opis</h2><p>Ten mod dodaje system craftingu zbroi z kolczugi.</p><p>Zamieniaj sztabki i łańcuchy w elementy zbroi w bardziej naturalny sposób, bez polegania na losowym łupie.</p><p>Idealny dla serwerów survivalowych, które chcą jasnej, vanilla‑friendly progresji.</p>"
     }
   },
   "tags": ["Armure", "Loot"],

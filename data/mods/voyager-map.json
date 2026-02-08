@@ -12,6 +12,11 @@
       "title": "Voyager Map",
       "shortDescription": "Immersive map, waypoints, and simpler exploration.",
       "descriptionHtml": "<h2>Full description</h2><p>Immersive map, waypoints, and simpler exploration.</p><p>Great for planning expeditions and marking important locations.</p>"
+    },
+    "pl": {
+      "title": "Voyager Map",
+      "shortDescription": "Immersyjna mapa, waypointy i prostsza eksploracja.",
+      "descriptionHtml": "<h2>Pełny opis</h2><p>Immersyjna mapa, waypointy i prostsza eksploracja.</p><p>Świetne do planowania wypraw i oznaczania ważnych miejsc.</p>"
     }
   },
   "tags": ["Exploration", "Carte", "Waypoints"],

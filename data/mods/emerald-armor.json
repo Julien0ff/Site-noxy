@@ -12,6 +12,11 @@
       "title": "Emerald Armor",
       "shortDescription": "Adds Emerald armor.",
       "descriptionHtml": "<h2>Full description</h2><p>The Emerald Armor mod adds emerald tools and armor, slightly stronger than diamond.</p><p>Emerald armor effects:</p><ul class='modpack-list'><li>Helmet: Hero of the Village III.</li></ul><p>Why download this mod rather than another emerald mod?</p><p>This mod keeps a vanilla style. Adding it to Minecraft still feels like Minecraft. If you enjoy vanilla style, give it a try.</p><p>Available for client and server. For Fabric, the Fabric API is required (in development).</p><p>Created with MCreator.</p>"
+    },
+    "pl": {
+      "title": "Emerald Armor",
+      "shortDescription": "Dodaje zbroję ze szmaragdu.",
+      "descriptionHtml": "<h2>Pełny opis</h2><p>Mod Emerald Armor dodaje narzędzia i zbroję ze szmaragdu, nieco mocniejsze od diamentu.</p><p>Efekty zbroi ze szmaragdu:</p><ul class='modpack-list'><li>Hełm: Bohater wioski III.</li></ul><p>Dlaczego pobrać ten mod zamiast innego moda ze szmaragdem?</p><p>Ten mod zachowuje styl vanilla. Dodanie go do Minecrafta nadal sprawia wrażenie gry w Minecrafta. Jeśli lubisz styl vanilla, koniecznie go wypróbuj.</p><p>Dostępny dla klienta i serwera. Dla Fabric wymagane jest Fabric API (w trakcie rozwoju).</p><p>Stworzono w MCreator.</p>"
     }
   },
   "tags": ["Armure", "Loot"],

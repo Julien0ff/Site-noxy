@@ -45,7 +45,11 @@ const setStored = (key, value) => {
 
 const UI_DEFAULT_LANG = "en";
 const normalizeTheme = (value) => (["light", "dark", "auto"].includes(value) ? value : "auto");
-const normalizeLang = (value) => (["fr", "en", "pl"].includes(value) ? value : UI_DEFAULT_LANG);
+const normalizeLang = (value) => {
+  if (typeof value !== "string") return UI_DEFAULT_LANG;
+  const trimmed = value.trim().toLowerCase();
+  return trimmed || UI_DEFAULT_LANG;
+};
 
 const uiCache = new Map();
 let uiStrings = {};
@@ -460,7 +464,12 @@ const uniqueValues = (values) => Array.from(new Set(values.filter(Boolean)));
 const getTextBlock = (content) => {
   const lang = root.dataset.lang || UI_DEFAULT_LANG;
   if (!content?.texts) return {};
-  return content.texts[lang] || content.texts.en || content.texts.fr || Object.values(content.texts)[0] || {};
+  const english = content.texts.en || {};
+  const localized = content.texts[lang] || {};
+  if (lang === "en") return { ...english };
+  if (Object.keys(english).length) return { ...english, ...localized };
+  const fallback = Object.values(content.texts)[0] || {};
+  return { ...fallback, ...localized };
 };
 
 const jsonCache = new Map();

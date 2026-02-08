@@ -12,6 +12,11 @@
       "title": "Optim Pack",
       "shortDescription": "Performance, stability, FPS.",
       "descriptionHtml": "<p class='empty-state'>Description not available yet.</p>"
+    },
+    "pl": {
+      "title": "Optim Pack",
+      "shortDescription": "Wydajność, stabilność, FPS.",
+      "descriptionHtml": "<p class='empty-state'>Opis jeszcze niedostępny.</p>"
     }
   },
   "tags": ["Perf", "Stable", "FPS"],
