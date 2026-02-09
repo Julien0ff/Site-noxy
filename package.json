@@ -1,0 +1,13 @@
+{
+  "name": "aurorastudio-website",
+  "version": "1.0.0",
+  "description": "Site web d'AuroraStudio - Studio Minecraft",
+  "main": "index.html",
+  "scripts": {
+    "dev": "browser-sync start --server --files \"*.html, *.css, *.js, data/**/*.json\"",
+    "start": "browser-sync start --server --files \"*.html, *.css, *.js, data/**/*.json\""
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.0"
+  }
+}

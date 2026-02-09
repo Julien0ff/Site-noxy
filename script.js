@@ -1,4 +1,4 @@
-﻿const copyBtns = document.querySelectorAll(".copy");
+const copyBtns = document.querySelectorAll(".copy");
 copyBtns.forEach((btn) => {
   btn.addEventListener("click", async () => {
     const value = btn.getAttribute("data-copy") || "";
@@ -556,24 +556,33 @@ const renderListPage = async (typeKey) => {
           : `<span class="icon-letter">${title.charAt(0).toUpperCase()}</span>`;
         const statusHtml = `<span class="status-dot ${statusInfo.className}">${statusInfo.letter}</span><span class="status-text">${statusInfo.label}</span>`;
         return `
-        <a class="list-item" href="${content.page || "#"}">
-          <div class="list-icon">${iconHtml}</div>
-          <div>
-            <div class="list-title">${title}</div>
-            <p class="list-desc">${text.shortDescription || ""}</p>
-            <div class="list-meta">${tagHtml}</div>
-          </div>
-          <div class="list-stats">
+        <div class="list-item-container">
+          <a class="list-item" href="${content.page || "#"}">
+            <div class="list-icon">${iconHtml}</div>
             <div>
-              <div class="stat-value">${versionName}</div>
-            <div class="stat-label">${t("list.labels.version", "Version")}</div>
+              <div class="list-title">${title}</div>
+              <p class="list-desc">${text.shortDescription || ""}</p>
+              <div class="list-meta">${tagHtml}</div>
             </div>
-            <div>
-              <div class="stat-value">${statusHtml}</div>
-            <div class="stat-label">${t("list.labels.status", "Status")}</div>
+            <div class="list-stats">
+              <div>
+                <div class="stat-value">${versionName}</div>
+              <div class="stat-label">${t("list.labels.version", "Version")}</div>
+              </div>
+              <div>
+                <div class="stat-value">${statusHtml}</div>
+              <div class="stat-label">${t("list.labels.status", "Status")}</div>
+              </div>
             </div>
-          </div>
-        </a>`;
+          </a>
+          <button class="list-download-btn" type="button" data-download-id="${content.id}" data-download-type="${typeKey}" aria-label="${t("download.label", "Download")}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v12"></path>
+              <path d="M7 10l5 5 5-5"></path>
+              <path d="M5 21h14"></path>
+            </svg>
+          </button>
+        </div>`;
       })
       .join("");
     listEl.innerHTML = html || `<p class="empty-state">${t("list.empty", "No content available.")}</p>`;
@@ -588,21 +597,39 @@ const buildCard = (content) => {
   const description = text.shortDescription || "";
   const image = content.images?.banner || content.images?.logo;
   const hasImage = Boolean(image);
+  
+  const downloadBtn = `
+    <button class="card-download" type="button" data-download-id="${content.id}" data-download-type="${content.type}" aria-label="${t("download.label", "Download")}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v12"></path>
+        <path d="M7 10l5 5 5-5"></path>
+        <path d="M5 21h14"></path>
+      </svg>
+    </button>`;
+
   if (hasImage) {
     return `
-      <a class="card media-card card-link" href="${content.page || "#"}">
-        <img src="${image}" alt="${title}" />
+      <div class="card media-card">
+        <a class="card-link" href="${content.page || "#"}">
+          <img src="${image}" alt="${title}" />
+          <div class="card-body">
+            <h3>${title}</h3>
+            <p>${description}</p>
+          </div>
+        </a>
+        ${downloadBtn}
+      </div>`;
+  }
+  return `
+    <div class="card">
+      <a class="card-link" href="${content.page || "#"}">
         <div class="card-body">
           <h3>${title}</h3>
           <p>${description}</p>
         </div>
-      </a>`;
-  }
-  return `
-    <a class="card card-link" href="${content.page || "#"}">
-      <h3>${title}</h3>
-      <p>${description}</p>
-    </a>`;
+      </a>
+      ${downloadBtn}
+    </div>`;
 };
 
 const renderHomePage = async () => {
@@ -1109,6 +1136,53 @@ const initDataPages = async () => {
     const id = document.body.dataset.id;
     if (type && id) await renderDetailPage(type, id);
   }
+
+  // Set active navbar link
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll(".nav-links a, .mobile-nav-item, .mobile-nav-actions a, .brand");
+  navLinks.forEach(link => {
+    const href = link.getAttribute("href");
+    if (!href || href === "#") return;
+    
+    // Normalize paths for comparison
+    const pathName = currentPath.split("/").pop() || "index.html";
+    const hrefName = href.split("/").pop();
+    
+    // Check for direct match
+    let isActive = pathName === hrefName;
+    
+    // Handle category active states for detail pages
+    if (!isActive && hrefName !== "index.html") {
+      if (hrefName === "mods.html" && pathName.startsWith("mod-")) isActive = true;
+      if (hrefName === "modpacks.html" && pathName.startsWith("modpack-")) isActive = true;
+      if (hrefName === "resourcepacks.html" && pathName.startsWith("resourcepack-")) isActive = true;
+    }
+    
+    // Special case for root
+    if (!isActive && pathName === "index.html" && hrefName === "index.html") isActive = true;
+    
+    if (isActive) {
+      link.classList.add("active");
+    }
+  });
+
+  // Handle dynamic download button clicks
+  document.addEventListener("click", async (e) => {
+    const btn = e.target.closest("[data-download-id]");
+    if (!btn) return;
+
+    const id = btn.dataset.downloadId;
+    const type = btn.dataset.downloadType || document.body.dataset.type;
+    if (!id || !type) return;
+
+    try {
+      const folder = DATA_FOLDERS[type] || type;
+      const content = await fetchJson(`data/${folder}/${id}.json`);
+      openDownloadModal(content);
+    } catch (error) {
+      console.error("Failed to load download data:", error);
+    }
+  });
 };
 
 const boot = async () => {
