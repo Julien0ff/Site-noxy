@@ -1,0 +1,18 @@
+[
+  {
+    "id": "survie",
+    "name": "Survie modée",
+    "description": "Progression, exploration, quêtes, économie légère et events.",
+    "ip": "AventuryaCraft.aternos.me:17509",
+    "ipLabel": "IP Survie Modée",
+    "tags": ["Quêtes", "Boss", "Économie"]
+  },
+  {
+    "id": "creatif",
+    "name": "Créatif modé",
+    "description": "Construction sans limites, WorldEdit, matériaux premium, plots.",
+    "ip": "GalaxyaStudio.aternos.me:61745",
+    "ipLabel": "IP Créatif Modé",
+    "tags": ["Plots", "WorldEdit", "Décorations"]
+  }
+]

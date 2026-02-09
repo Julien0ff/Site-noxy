@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AuroraStudio &mdash; Mods</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="logo.png" />
 </head>
 <body data-page="list" data-type="mods">
   <div class="bg-glow"></div>
@@ -12,8 +13,11 @@
 
   <header class="hero">
     <div class="mobile-topbar">
-      <a class="mobile-brand" href="index.html">Aurora<span>Studio</span></a>
-      <a class="mobile-settings" href="parametres.html" aria-label="Param&egrave;tres" title="Param&egrave;tres">
+      <a class="mobile-brand" href="index.html">
+        <img src="logo.png" alt="Logo" class="nav-logo">
+        Aurora<span>Studio</span>
+      </a>
+      <a class="mobile-settings" href="parametres.html" aria-label="Paramètres" title="Paramètres">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="3"></circle>
           <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .65.39 1.24 1 1.51.17.08.35.12.54.12H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
@@ -21,7 +25,10 @@
       </a>
     </div>
         <nav class="nav">
-      <a class="brand" href="index.html">Aurora<span>Studio</span></a>      <div class="nav-links">
+      <a class="brand" href="index.html">
+        <img src="logo.png" alt="Logo" class="nav-logo">
+        Aurora<span>Studio</span>
+      </a>      <div class="nav-links">
         <a href="resourcepacks.html">Packs de ressources</a>
         <a href="mods.html">Mods</a>
         <a href="modpacks.html">Modpacks</a>
@@ -82,9 +89,33 @@
     <div class="mobile-nav-modal" role="dialog" aria-modal="true" aria-label="Explorer">
       <button class="mobile-nav-close" type="button" data-mobile-close aria-label="Fermer">&times;</button>
       <h3>Explorer</h3>      <div class="mobile-nav-actions">
-        <a class="btn primary" href="modpacks.html">Modpacks</a>
-        <a class="btn ghost" href="mods.html">Mods</a>
-        <a class="btn ghost" href="resourcepacks.html">Packs de ressources</a>
+        <a class="mobile-nav-item-btn" href="modpacks.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+          <span>Modpacks</span>
+        </a>
+        <a class="mobile-nav-item-btn" href="mods.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+          <span>Mods</span>
+        </a>
+        <a class="mobile-nav-item-btn" href="resourcepacks.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Packs</span>
+        </a>
+        <a class="mobile-nav-settings-btn" href="parametres.html">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .65.39 1.24 1 1.51.17.08.35.12.54.12H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Param&egrave;tres du site</span>
+        </a>
       </div>
     </div>
   </div>

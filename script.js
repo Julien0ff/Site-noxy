@@ -168,10 +168,10 @@ const applyUiStrings = () => {
   setAttr(".mobile-nav-modal", "aria-label", "mobile.explore");
   setAttr(".mobile-nav-close", "aria-label", "buttons.close");
   setText(".mobile-nav-modal h3", "mobile.explore");
-  setText('.mobile-nav-actions a[href="modpacks.html"]', "nav.modpacks");
-  setText('.mobile-nav-actions a[href="mods.html"]', "nav.mods");
-  setText('.mobile-nav-actions a[href="resourcepacks.html"]', "nav.resourcepacks");
-  setText('.mobile-nav-actions a[href="parametres.html"]', "nav.settings");
+  setText('.mobile-nav-item-btn[href="modpacks.html"] span', "nav.modpacks");
+  setText('.mobile-nav-item-btn[href="mods.html"] span', "nav.mods");
+  setText('.mobile-nav-item-btn[href="resourcepacks.html"] span', "nav.resourcepacks");
+  setText('.mobile-nav-settings-btn[href="parametres.html"] span', "nav.settings");
 
   setText("footer.footer > div:first-child", "footer.copyright");
   setText("footer .footer-links a:nth-child(1)", "footer.discord");
@@ -647,7 +647,7 @@ const renderHomePage = async () => {
         const featured = entries.filter((item) => item.featured);
         const selection = (featured.length ? featured : entries.filter((item) => item.listed)).slice(0, 4);
         const contents = await Promise.all(
-          selection.map((item) => fetchJson(`data/${key}/${item.id}.json`).catch(() => null))
+          selection.map((item) => fetchJson(`data/${key}/${item.id}.json`).then(data => ({ ...data, type: key })).catch(() => null))
         );
         container.innerHTML = contents.filter(Boolean).map(buildCard).join("");
       })
@@ -948,14 +948,9 @@ const renderModpackDownload = (content, text) => {
     link.textContent = t("download.curseforge", "Download on CurseForge");
     actions.appendChild(link);
   }
-  if (!actions.children.length) {
-    const empty = document.createElement("p");
-    empty.className = "empty-state";
-    empty.textContent = t("download.noLinks", "No links available.");
-    downloadBody.appendChild(empty);
-    return;
+  if (actions.children.length) {
+    downloadBody.appendChild(actions);
   }
-  downloadBody.appendChild(actions);
 };
 
 const renderModDownload = (content) => {
@@ -1031,6 +1026,29 @@ const renderModDownload = (content) => {
   downloadBody.appendChild(filters);
   downloadBody.appendChild(results);
   updateResults();
+
+  // Add external links below results
+  const actions = document.createElement("div");
+  actions.className = "download-actions";
+  const modrinth = content.links?.modrinth;
+  const curseforge = content.links?.curseforge;
+  if (modrinth && modrinth !== "#") {
+    const link = document.createElement("a");
+    link.className = "download-btn modrinth";
+    link.href = modrinth;
+    link.textContent = t("download.modrinth", "Download on Modrinth");
+    actions.appendChild(link);
+  }
+  if (curseforge && curseforge !== "#") {
+    const link = document.createElement("a");
+    link.className = "download-btn curseforge";
+    link.href = curseforge;
+    link.textContent = t("download.curseforge", "Download on CurseForge");
+    actions.appendChild(link);
+  }
+  if (actions.children.length) {
+    downloadBody.appendChild(actions);
+  }
 };
 
 const renderResourcepackDownload = (content) => {
@@ -1082,6 +1100,29 @@ const renderResourcepackDownload = (content) => {
   downloadBody.appendChild(filters);
   downloadBody.appendChild(results);
   updateResults();
+
+  // Add external links below results
+  const actions = document.createElement("div");
+  actions.className = "download-actions";
+  const modrinth = content.links?.modrinth;
+  const curseforge = content.links?.curseforge;
+  if (modrinth && modrinth !== "#") {
+    const link = document.createElement("a");
+    link.className = "download-btn modrinth";
+    link.href = modrinth;
+    link.textContent = t("download.modrinth", "Download on Modrinth");
+    actions.appendChild(link);
+  }
+  if (curseforge && curseforge !== "#") {
+    const link = document.createElement("a");
+    link.className = "download-btn curseforge";
+    link.href = curseforge;
+    link.textContent = t("download.curseforge", "Download on CurseForge");
+    actions.appendChild(link);
+  }
+  if (actions.children.length) {
+    downloadBody.appendChild(actions);
+  }
 };
 
 const buildDownloadItem = (version, content) => {
@@ -1136,35 +1177,47 @@ const initDataPages = async () => {
     const id = document.body.dataset.id;
     if (type && id) await renderDetailPage(type, id);
   }
+  if (page === "servers") {
+    await renderServersPage();
+  }
 
-  // Set active navbar link
-  const currentPath = window.location.pathname;
-  const navLinks = document.querySelectorAll(".nav-links a, .mobile-nav-item, .mobile-nav-actions a, .brand");
-  navLinks.forEach(link => {
-    const href = link.getAttribute("href");
-    if (!href || href === "#") return;
+  // Robust Active Link System
+  const updateActiveLinks = () => {
+    const page = document.body.dataset.page;
+    const type = document.body.dataset.type || "";
     
-    // Normalize paths for comparison
-    const pathName = currentPath.split("/").pop() || "index.html";
-    const hrefName = href.split("/").pop();
-    
-    // Check for direct match
-    let isActive = pathName === hrefName;
-    
-    // Handle category active states for detail pages
-    if (!isActive && hrefName !== "index.html") {
-      if (hrefName === "mods.html" && pathName.startsWith("mod-")) isActive = true;
-      if (hrefName === "modpacks.html" && pathName.startsWith("modpack-")) isActive = true;
-      if (hrefName === "resourcepacks.html" && pathName.startsWith("resourcepack-")) isActive = true;
-    }
-    
-    // Special case for root
-    if (!isActive && pathName === "index.html" && hrefName === "index.html") isActive = true;
-    
-    if (isActive) {
-      link.classList.add("active");
-    }
-  });
+    // 1. Determine the logical "active" target
+    let activeTarget = "";
+    if (page === "home") activeTarget = "index.html";
+    else if (page === "servers") activeTarget = "serveurs.html";
+    else if (page === "settings") activeTarget = "parametres.html";
+    else if (type.startsWith("modpack")) activeTarget = "modpacks.html";
+    else if (type.startsWith("mod")) activeTarget = "mods.html";
+    else if (type.startsWith("resourcepack")) activeTarget = "resourcepacks.html";
+
+    // 2. Select all potential navigation elements
+     const allLinks = document.querySelectorAll('.nav-links a, .mobile-nav-item, .mobile-nav-item-btn, .mobile-nav-settings-btn, .brand, .mobile-brand, .mobile-settings');
+     
+     allLinks.forEach(link => {
+       const href = link.getAttribute('href');
+       if (!href) return;
+       
+       // Clean href for comparison
+       const cleanHref = href.split('/').pop().split('?')[0].split('#')[0] || 'index.html';
+       const isActive = cleanHref === activeTarget;
+       
+       link.classList.toggle('active', isActive);
+     });
+
+     // Handle the mobile "Explore" button active state
+     const exploreBtn = document.querySelector('[data-mobile-open]');
+     if (exploreBtn) {
+       const isExploreActive = ['modpacks.html', 'mods.html', 'resourcepacks.html'].includes(activeTarget);
+       exploreBtn.classList.toggle('active', isExploreActive);
+     }
+  };
+
+  updateActiveLinks();
 
   // Handle dynamic download button clicks
   document.addEventListener("click", async (e) => {
@@ -1183,6 +1236,78 @@ const initDataPages = async () => {
       console.error("Failed to load download data:", error);
     }
   });
+};
+
+const renderServersPage = async () => {
+  const container = document.getElementById("servers-list");
+  if (!container) return;
+
+  try {
+    const servers = await fetchJson("data/servers.json");
+    container.innerHTML = "";
+    servers.forEach((server) => {
+      const article = document.createElement("article");
+      article.id = server.id;
+      article.className = "card";
+
+      const h3 = document.createElement("h3");
+      h3.textContent = server.name;
+      article.appendChild(h3);
+
+      const p = document.createElement("p");
+      p.textContent = server.description;
+      article.appendChild(p);
+
+      const serverCard = document.createElement("div");
+      serverCard.className = "server-card";
+
+      const infoDiv = document.createElement("div");
+      const label = document.createElement("div");
+      label.className = "label";
+      label.textContent = server.ipLabel;
+      infoDiv.appendChild(label);
+
+      const ip = document.createElement("div");
+      ip.className = "ip";
+      ip.textContent = server.ip;
+      infoDiv.appendChild(ip);
+      serverCard.appendChild(infoDiv);
+
+      const copyBtn = document.createElement("button");
+      copyBtn.className = "copy";
+      copyBtn.dataset.copy = server.ip;
+      copyBtn.textContent = t("buttons.copy", "Copier");
+      
+      // Re-attach copy event listener for dynamic content
+      copyBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(server.ip);
+          copyBtn.textContent = t("copy.success", "Copié !");
+          setTimeout(() => (copyBtn.textContent = t("buttons.copy", "Copier")), 1500);
+        } catch {
+          copyBtn.textContent = t("copy.error", "Erreur");
+          setTimeout(() => (copyBtn.textContent = t("buttons.copy", "Copier")), 1500);
+        }
+      });
+
+      serverCard.appendChild(copyBtn);
+      article.appendChild(serverCard);
+
+      const tagsDiv = document.createElement("div");
+      tagsDiv.className = "tags";
+      ensureArray(server.tags).forEach((tag) => {
+        const span = document.createElement("span");
+        span.className = "tag";
+        span.textContent = tag;
+        tagsDiv.appendChild(span);
+      });
+      article.appendChild(tagsDiv);
+
+      container.appendChild(article);
+    });
+  } catch (error) {
+    console.error("Failed to load servers data:", error);
+  }
 };
 
 const boot = async () => {

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Login &mdash; AuroraStudio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="logo.png" />
+  <style>
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      padding: 40px;
+      border-radius: 24px;
+      background: var(--modal-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-stroke);
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+    }
+    .login-card h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .login-card p {
+      margin: 0 auto 32px;
+      font-size: 15px;
+      opacity: 0.8;
+    }
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: var(--glass);
+      border: 1px solid var(--glass-stroke);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 16px;
+      transition: var(--transition);
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--violet-2);
+      background: var(--glass-hover);
+    }
+    .discord-btn {
+      width: 100%;
+      margin-top: 10px;
+      background: #5865F2;
+      color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    .discord-btn:hover {
+      background: #4752C4;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+    }
+    .discord-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+    .error-msg {
+      color: #ff4d4d;
+      font-size: 14px;
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(255, 77, 77, 0.1);
+      display: none;
+    }
+    .loading-msg {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--muted);
+      display: none;
+    }
+  </style>
+</head>
+<body data-page="admin-login">
+  <div class="bg-glow"></div>
+  <div class="bg-photo" aria-hidden="true"></div>
+
+  <div class="login-container">
+    <div class="login-card">
+      <a class="brand" href="index.html" style="margin-bottom: 24px; justify-content: center;">
+        <img src="logo.png" alt="Logo" class="nav-logo">
+        Aurora<span>Studio</span>
+      </a>
+      <h1>Administration</h1>
+      <p>Accès restreint via Discord</p>
+      
+      <button id="discordLoginBtn" class="btn discord-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+        </svg>
+        Se connecter avec Discord
+      </button>
+
+      <div id="loadingMsg" class="loading-msg">Vérification de l'identité...</div>
+      <div id="errorMsg" class="error-msg">Accès refusé. Vous n'êtes pas autorisé.</div>
+    </div>
+  </div>
+
+  <script>
+    // Configuration Discord
+    const CLIENT_ID = "1470497930921377943"; // Client ID mis à jour
+    const WHITELISTED_IDS = ["864876977227038730", "1064801165201641592"];
+    const REDIRECT_URI = window.location.origin + window.location.pathname;
+
+    const discordLoginBtn = document.getElementById('discordLoginBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const loadingMsg = document.getElementById('loadingMsg');
+
+    // Générer l'URL d'autorisation Discord
+    discordLoginBtn.addEventListener('click', () => {
+      const scope = "identify";
+      const responseType = "code"; // Changé de 'token' à 'code' pour plus de sécurité avec le Secret
+      const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=${responseType}&scope=${scope}`;
+      window.location.href = authUrl;
+    });
+
+    // Gérer le retour de Discord
+    const handleAuth = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code');
+
+      if (code) {
+        // Nettoyer l'URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+        
+        loadingMsg.style.display = 'block';
+        discordLoginBtn.style.display = 'none';
+
+        try {
+          // Appeler notre fonction Netlify pour échanger le code contre les infos utilisateur
+          const response = await fetch(`/.netlify/functions/auth?code=${code}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}`);
+          const user = await response.json();
+
+          if (user.error) throw new Error(user.error);
+
+          if (WHITELISTED_IDS.includes(user.id)) {
+            // Succès : Stocker la session et les infos utilisateur
+            sessionStorage.setItem('admin_session', 'active');
+            sessionStorage.setItem('admin_user', JSON.stringify({
+              id: user.id,
+              username: user.username,
+              avatar: user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : 'https://cdn.discordapp.com/embed/avatars/0.png'
+            }));
+            window.location.href = 'admin.html';
+          } else {
+            showError("Ouste ! Point d'intrus en ces lieux. Vous n'êtes point l'administrateur, de grâce, allez vous faire occire par quelque maraud !");
+          }
+        } catch (error) {
+          console.error("Auth error:", error);
+          showError("Erreur lors de la vérification Discord.");
+        }
+      }
+    };
+
+    const showError = (msg) => {
+      errorMsg.textContent = msg;
+      errorMsg.style.display = 'block';
+      loadingMsg.style.display = 'none';
+      discordLoginBtn.style.display = 'flex';
+      setTimeout(() => {
+        errorMsg.style.display = 'none';
+      }, 5000);
+    };
+
+    // Vérifier si on revient d'une auth
+    handleAuth();
+
+    // Redirection si déjà connecté
+    if (sessionStorage.getItem('admin_session') === 'active') {
+      window.location.href = 'admin.html';
+    }
+  </script>
+</body>
+</html>
